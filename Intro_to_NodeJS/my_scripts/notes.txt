@@ -1,0 +1,107 @@
+Node's Event Loop:
+Constantly listening for events on the server-side
+
+//Get a connection to the DB, and once you have it, call this function and pass it the new connection 'conn'
+getDbConnection(connectionString, function(err, conn){
+  conn.createStatement(function(err, stmt){
+    var results = stmt.executeQuery(sqlQuery);
+    results.on('row', fucntion(result){
+      //results is an EventEmitter, which is capable of emitting events in the future
+      //handle result
+    })
+  });
+});
+
+//Error is the first parameter to a callback function
+
+var handleResults = function(error, results) {
+  //if error is undefined,
+  //do something with results.
+}
+
+
+
+//Callbacks are functions called when information is ready for them
+
+//error is always the first parameter to callback function
+var handleResults = function(error, results) {
+  //if error is undefined
+  //do something with results
+}
+
+getStuff(inputParam, handleResults);
+
+//Callback function is always the last param in an async function call
+//Here, the callback is a named function called "handleResults"
+
+//Anonymous functions are used commonly if a callback is only needed once.
+getStuff(inputParam, function(error, results) {
+  //if error is undefined
+  //do something with results
+});
+
+Anonymous functions benefit from closures. As you cascade down functions
+and callbacks, you maintain use of variables created along the way.
+
+otherFunction(function(err,stuffToGet){
+  var foo = 23;
+  getStuff(stuffToGet, function(error, results){
+    //foo is accessible here
+  });
+});
+
+
+npm publish
+-- publishes a module to npm which can be retrieved by npm install
+
+Events and Streams:
+
+Callbacks:
+
+getthem(param, function(err, items){
+  //check for error
+  //operate on array of items
+});
+-- request/reply
+-- no results until all results
+-- either error or results
+Events:
+
+var results = getThem(param);
+
+results.on('item', function(i){
+  //do something with item
+});
+
+results.on('done', function(){
+  //no more items
+});
+
+results.on('error', function(err){
+  //react to err
+});
+-- publish/subscribe
+-- act on results as they arrive
+-- partial results before error possible
+
+Process:
+
+contains a set of streams:
+process.stdin
+process.stdout
+process.stderr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
